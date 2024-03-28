@@ -1,86 +1,78 @@
-﻿# 💊 Introduction à la POO
+﻿# QCM POO 📋
 
-## 🏆 Objectifs
-- Je sais créer et utiliser un objet PHP.
-- Je sais faire un héritage.
+## 🚀 PARTIE 1
 
-## 📺 Présentation
-- [Les paradigmes de programmation](https://docs.google.com/presentation/d/1S-5sxLhOG4O02RDbCrQA816CQZpECg3BytstehqaY7A/edit#slide=id.p)
-- [Introduction à la POO](https://docs.google.com/presentation/d/1Rs3aB2lmad4GMejCvoPQ4gwsn51Fk9sbjuig2Qf5j1s/edit)
+### 📌 Description
+Afin d’utiliser la POO PHP dans un cas concret, essayons de refaire la logique du TP quiz avec des classes. Pour cette première partie, pas besoin de base de données (rien ne sera enregistré), mais vous pouvez vous inspirer de la logique de votre TP vanilla pour imaginer les propriétés et les méthodes de ces classes.
 
-## 🎦 Live coding	
-  - Comment créer un objet PHP 
+Vous aurez besoin de trois classes :
+- Qcm
+- Question
+- Answer
 
-## 📚 Les ressources
-  - [declaration class php](https://tutowebdesign.com/declaration-class-php.php) / [héritage objet php](https://tutowebdesign.com/heritage-objet-php.php) / [visibilité classe php](https://tutowebdesign.com/visibilite-classe-php.php)
-  - Lior CHAMLA :
-    - [PARTIE 1 | Les Classes](https://www.youtube.com/watch?v=fZcGXjg97Ns)
-    - [PARTIE 2 | L'Encapsulation](https://www.youtube.com/watch?v=kDrdwWGipPo)
-    - [PARTIE 3 | L'Héritage](https://www.youtube.com/watch?v=XYZzsTLbhes)
-    - [PARTIE 4 | Interface et Abstraction](https://www.youtube.com/watch?v=NjF-gF1yNqo)
+De sortes que :
+- Un QCM regroupe l’ensemble des questions composant le quiz et la méthode qui permet d’afficher toutes les questions dans notre HTML.
+- Une Question contient un corps sous forme de texte et plusieurs Answers ainsi que l’explication de la bonne réponse.
+- Une Answer contient un texte ainsi que l'attribut permettant d’identifier si c’est une bonne réponse.
 
-  
+Vous n’aurez pas besoin de l’héritage. On l’utilise lorsque avec des **classes A et B, on peut dire que B est un A**. Or ici une réponse n'est pas une question, une question n'est pas un Qcm.
 
-## 📖 Lexique
-- **Classe** : Schéma qui permet de définir une série d'objets. Sorte de patron de conception.
-    - **Analogie** : Dans la construction d'une maison, les plans de l'architecte sont des classes, tandis que la maison construite est une instance du plan.
-- **Objet** : Instance de la classe générée grâce à l'opérateur `new`. Il est possible d'instancier plusieurs objets par classe.
-- **Instance** : Une itération de la classe. Une instance de classe contient un objet.
-- **Propriété** : Une variable de la classe qui prendra une valeur au moment de l'instanciation ou après.
-- **Méthode** : Une fonction définie dans la classe.
-- **Publique** : C'est une variable, propriété de l'objet, qui est accessible et visible en dehors de la classe.
-- **Privé** : C'est une variable, propriété de l'objet, qui n'est pas accessible ni visible en dehors de la classe.
-- **Statique** : C'est une variable, propriété de la classe, qui a la même valeur pour toutes les instances de la classe.
+### 🌳 Arborescence
+Vous organiserez vos fichiers ainsi :
+- Un dossier `class` contenant vos 3 classes
+- Un dossier `config` qui ne contient rien pour le moment
+- Le fichier `index.php` à la racine
 
-## ⛳ Exercices
+### ⚙️ Fonctionnalités requises
+- Ajouter une question
+    - Pouvoir ajouter les réponses possibles à une question
+    - Pouvoir définir la bonne réponse comme telle
+- Pouvoir définir les explications de la réponse d'une question.
 
-### Exercice 1
-- Dans un fichier PHP, créez une classe Formule1 avec une propriété privée `speed` qui est à 0 par défaut.
-- Dans cette classe Formule1, créer une méthode `drive()` qui affiche "Vroom vroom à x km/h", x étant la valeur de la propriété `speed`.
-- Créer une variable `myFormule1` qui contient une nouvelle instance de la classe Formule1.
-- Utiliser la méthode `drive()`.
-- Créer une méthode `shiftGear()` qui ajoute un nombre à l'attribut vitesse.
-- Enchaîner les méthodes `drive()`, `shiftGear()` et encore `drive()`. Cette dernière fonction doit afficher un nombre supérieur pour montrer le passage de vitesse.
+Il doit être possible de faire ceci pour générer un Qcm :
+```php
+$qcm = new Qcm();
+$question1 = new Question('POO signifie :');
+$question1->addAnswer(new Answer('Php Orienté Objet'));
+$question1->addAnswer(new Answer('ProgrammatiOn Orientée Outil'));
+$question1->addAnswer(new Answer('Programmation Orientée Objet', Answer::BONNE_REPONSE));
+$question1->addAnswer(new Answer('Papillon Onirique Ostentatoire'));
+$question1->setExplications('Sans commentaires si vous avez eu faux :-°');
+$qcm->addQuestion($question1);
+$qcm->generate();
+```
 
-### Exercice 2 - Héritage
-- Créer un fichier animaux.php
-- Créer une classe Animal qui contient la méthode `info()`. Cette méthode echo "je suis un animal".
-- Créer une classe Mammifère qui hérite de la classe Animal et qui contient la méthode `infoPlus()` qui echo "je suis un mammifère".
-- Créer une classe Chien qui hérite de la classe Mammifere et qui contient la méthode `crie()` qui echo "j'aboie".
-- Créer un nouveau Chien et utiliser toutes les méthodes de sa classe.
+## 🚀 PARTIE 2
 
-## 🔥 Extra :
-- Ajouter des propriétés à chaque classe qui leur sont propres.
-- Ajouter dans chaque méthode l'affichage de ces propriétés.
+### 📌 Description
 
-## ☕ Mini TP : nous allons construire une machine à café !
+Vous avez réussi à créer vos 3 classes ? Parfait, essayons d’utiliser PDO dans nos objets maintenant. Voici la liste des modifications à apporter.
 
-### Créer un fichier cafe.php
-- Créer la classe MachineACafe
-  - La machine doit avoir au minimum 3 attributs privés et 3 fonctions publiques :
-    - Les attributs : `marque`, `cafe`, `enFonction`.
-    - Les méthodes : `allumage()`, `faireDuCafe()`, `mettreUneDosette()`.
-  - Utiliser la méthode magique `__construct()` pour définir la marque de la machine.
-- Écrire le code des fonctions pour arriver à ce résultat :
-  ```php
-  $machine = new MachineACafe("Senseo");
-  $machine->allumage(true);
-  $machine->mettreUneDosette();
-  $machine->faireDuCafe();
-    // Output:
-  // Senseo est en fonction.
-  // Je mets une dosette.
-  // Le café est prêt !
-  ```
+#### 📋 QCM
 
-### 🔥 Extra
-- Gérer toutes les possibilités d'erreur d'utilisation.
-- Ajouter une méthode pour éteindre la MachineACafe.
-- Imaginer et intégrer la gestion du sucre.
-- Ajouter un monnayeur pour payer son café et qui rend la monnaie.
-- Créer une interface graphique représentant la machine et les interactions.
+QCM doit devenir notre Manager, il contiendra en plus une instance de PDO dans une private `$db` qui sera initialisé dans son constructeur. Nous allons créer une nouvelle méthode public `getQuestions()` qui utilisera une requête PDO pour récupérer les questions de la base de données de votre quiz. La fonction `generate()` reste inchangée.
 
-## 🧠 A retenir
-- Le constructeur permet d’initier des propriétés à l’instanciation de l’objet.
+#### ❓ Question
 
+Nous devons transformer cette classe en une “Entité”, c'est-à-dire qu’elle doit avoir autant de propriétés qu’il y a de colonnes dans votre table (avec les accesseurs et mutateurs correspondants).
 
+#### ✏️ Answer
+
+Vous allez devoir créer une table `answer` et extraire les réponses de votre table `question`. Ensuite, vous devez appliquer le même traitement à cette classe que pour la classe Question (en faire une Entité).
+
+La fonction `getQuestions()` ne doit que gérer la requête SQL, créez une nouvelle private function qui fonctionnera ainsi :
+- Recevoir en argument le tableau de données récupéré par la requête
+- Instancier les objets Question et Answer avec ce tableau
+- Cette nouvelle fonction sera appelée par `getQuestion()`
+
+Il doit être possible de faire ceci pour générer un Qcm :
+```php
+$db = new PDO();
+$qcm = new Qcm($db);
+$qcm->getQuestions();
+$qcm->generate();
+```
+
+### ⚠️ ATTENTION !
+
+Nous n’implémentons pas la logique du traitement des réponses dans ce TP. Le but de ce TP est de vous familiariser avec une nouvelle logique, donc on y va pas à pas. 🚀
