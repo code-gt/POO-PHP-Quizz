@@ -3,7 +3,7 @@
 ## 🚀 PARTIE 1
 
 ### 📌 Description
-Afin d’utiliser la POO PHP dans un cas concret, essayons de refaire la logique du TP quiz avec des classes. Pour cette première partie, pas besoin de base de données (rien ne sera enregistré), mais vous pouvez vous inspirer de la logique de votre TP vanilla pour imaginer les propriétés et les méthodes de ces classes.
+Afin d’utiliser la POO PHP dans un cas concret, essayons de réaliser un TP type Quiz avec des class. Pour cette première partie, pas besoin de base de données (rien ne sera enregistré), mais vous devrez réfléchir aux propriétés et méthodes de vos class.
 
 Vous aurez besoin de trois classes :
 - Qcm
